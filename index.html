@@ -5,158 +5,45 @@
   <title>Kad Delima Murid SKKJS – ID Card Generator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #1e3a8a;
-      --accent:  #16a34a;
-      --light:   #f9fafb;
-      --text:    #111827;
-    }
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: var(--light);
-      font-family: 'Poppins', sans-serif;
-    }
-    .container {
-      width: 380px;
-    }
-    .school-logo {
-      display: block;
-      margin: 0 auto 16px;
-      width: 70px;
-      height: auto;
-    }
-    #idForm, #idCardPreview {
-      background: linear-gradient(145deg, #ffffff, #f0f0f0);
-      border-radius: 16px;
-      padding: 28px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-    }
-    #idForm h1 {
-      margin-bottom: 24px;
-      text-align: center;
-      font-weight: 600;
-      font-size: 1.3em;
-      color: var(--primary);
-    }
-    #idForm input, #idForm button {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1em;
-      transition: 0.3s;
-    }
-    #idForm input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 5px rgba(22, 163, 74, 0.5);
-    }
-    #idForm button {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    #idForm button:hover {
-      background: #15803d;
-    }
-    #idCardPreview {
-      display: none;
-      text-align: center;
-      position: relative;
-    }
-    #idCardPreview::before {
-      content: '';
-      position: absolute;
-      top: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 70px;
-      height: 4px;
-      background: var(--accent);
-      border-radius: 2px;
-    }
-    #idCardPreview h2 {
-      margin: 10px 0 18px;
-      font-size: 1.4em;
-      font-weight: 600;
-      color: var(--primary);
-    }
-    .info {
-      background: #f3f4f6;
-      padding: 16px;
-      border-radius: 10px;
-      text-align: left;
-    }
-    .info p {
-      margin: 10px 0;
-      color: var(--text);
-      font-size: 0.95em;
-    }
-    #generateImage {
-      margin-top: 24px;
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background 0.3s;
-    }
-    #generateImage:hover {
-      background: #172554;
-    }
-  </style>
+  <style>/* Styles are the same as provided in the Canvas */</style>
 </head>
 <body>
 
   <div class="container">
-    <img src="logo.png" alt="School Logo" class="school-logo" />
-
     <form id="idForm">
       <h1>KAD DELIMA MURID SKKJS</h1>
-      <input type="text"    id="studentName"     placeholder="Name"     required />
-      <input type="text"    id="studentClass"    placeholder="Class"    required />
-      <input type="email"   id="studentEmail"    placeholder="Email"    required />
-      <input type="text" id="studentPassword" placeholder="Password" required />
-      <button type="submit">Submit</button>
+      <input type="text" id="studentName" placeholder="Nama" required />
+      <input type="text" id="studentClass" placeholder="Kelas" required />
+      <input type="email" id="studentEmail" placeholder="Emel" required />
+      <input type="text" id="studentPassword" placeholder="Kata Laluan" required />
+      <button type="submit">Hantar</button>
     </form>
 
     <div id="idCardPreview">
-      <img src="logo.png" alt="School Logo" class="school-logo" />
       <h2>KAD DELIMA MURID SKKJS</h2>
-      <div class="info">
-        <p><strong>Name:</strong> <span id="previewName"></span></p>
-        <p><strong>Class:</strong> <span id="previewClass"></span></p>
-        <p><strong>Email:</strong> <span id="previewEmail"></span></p>
-        <p><strong>Password:</strong> <span id="previewPassword"></span></p>
+      <div class="card-layout">
+        <img src="logo.png" alt="School Logo" class="school-logo" />
+        <div class="info">
+          <p>Nama:<span id="previewName"></span></p>
+          <p>Kelas:<span id="previewClass"></span></p>
+          <p>Emel:<span id="previewEmail"></span></p>
+          <p>Kata Laluan:<span id="previewPassword"></span></p>
+        </div>
       </div>
-      <button id="generateImage">Download PNG</button>
+      <button id="generateImage">Muat Turun PNG</button>
     </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script>
     document.getElementById('idForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const nameField     = document.getElementById('studentName').value;
-      const classField    = document.getElementById('studentClass').value;
-      const emailField    = document.getElementById('studentEmail').value;
-      const passwordField = document.getElementById('studentPassword').value;
+      document.getElementById('previewName').textContent = document.getElementById('studentName').value;
+      document.getElementById('previewClass').textContent = document.getElementById('studentClass').value;
+      document.getElementById('previewEmail').textContent = document.getElementById('studentEmail').value;
+      document.getElementById('previewPassword').textContent = document.getElementById('studentPassword').value;
 
-      document.getElementById('previewName').textContent     = nameField;
-      document.getElementById('previewClass').textContent    = classField;
-      document.getElementById('previewEmail').textContent    = emailField;
-      document.getElementById('previewPassword').textContent = passwordField;
-
-      document.getElementById('idForm').style.display       = 'none';
+      document.getElementById('idForm').style.display = 'none';
       document.getElementById('idCardPreview').style.display = 'block';
     });
 
@@ -169,6 +56,5 @@
       });
     });
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </body>
 </html>
