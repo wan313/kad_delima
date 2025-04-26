@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kad Delima Murid SKKJS – ID Card Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2c3e50;
+      --accent:  #18bc9c;
+      --light:   #f7f7f7;
+      --text:    #34495e;
+    }
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--light);
+      font-family: 'Poppins', sans-serif;
+    }
+    .container {
+      width: 360px;
+    }
+    .school-logo {
+      display: block;
+      margin: 0 auto 20px;
+      width: 60px;
+      height: auto;
+    }
+    #idForm, #idCardPreview {
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    #idForm h1 {
+      margin: 0 0 20px;
+      text-align: center;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    #idForm input, #idForm button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 16px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1em;
+    }
+    #idForm input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    #idForm button {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    #idForm button:hover {
+      background: #15a589;
+    }
+    #idCardPreview {
+      display: none;
+      text-align: center;
+      position: relative;
+    }
+    #idCardPreview::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    #idCardPreview h2 {
+      margin: 10px 0;
+      font-size: 1.4em;
+      color: var(--primary);
+    }
+    .info p {
+      margin: 8px 0;
+      color: var(--text);
+      font-size: 0.95em;
+      text-align: left;
+    }
+    #generatePdf {
+      margin-top: 20px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    #generatePdf:hover {
+      background: #1a252f;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <img src="logo.png" alt="School Logo" class="school-logo" />
+
+    <form id="idForm">
+      <h1>Generate KAD DELIMA MURID SKKJS</h1>
+      <input type="text"    id="studentName"     placeholder="Name"     required />
+      <input type="text"    id="studentClass"    placeholder="Class"    required />
+      <input type="email"   id="studentEmail"    placeholder="Email"    required />
+      <input type="text" id="studentPassword" placeholder="Password" required />
+      <button type="submit">Submit</button>
+    </form>
+
+    <div id="idCardPreview">
+      <img src="logo.png" alt="School Logo" class="school-logo" />
+      <h2>KAD DELIMA MURID SKKJS</h2>
+      <div class="info">
+        <p><strong>Name:</strong> <span id="previewName"></span></p>
+        <p><strong>Class:</strong> <span id="previewClass"></span></p>
+        <p><strong>Email:</strong> <span id="previewEmail"></span></p>
+        <p><strong>Password:</strong> <span id="previewPassword"></span></p>
+      </div>
+      <button id="generatePdf">Download PDF</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    document.getElementById('idForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const nameField     = document.getElementById('studentName').value;
+      const classField    = document.getElementById('studentClass').value;
+      const emailField    = document.getElementById('studentEmail').value;
+      const passwordField = document.getElementById('studentPassword').value;
+
+      document.getElementById('previewName').textContent     = nameField;
+      document.getElementById('previewClass').textContent    = classField;
+      document.getElementById('previewEmail').textContent    = emailField;
+      document.getElementById('previewPassword').textContent = passwordField;
+
+      document.getElementById('idForm').style.display       = 'none';
+      document.getElementById('idCardPreview').style.display = 'block';
+    });
+
+    document.getElementById('generatePdf').addEventListener('click', () => {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ unit: 'px', format: [300, 210] });
+
+      doc.setFillColor('#ffffff');
+      doc.rect(0, 0, 300, 210, 'F');
+
+      doc.setFontSize(14);
+      doc.text('KAD DELIMA MURID SKKJS', 150, 30, { align: 'center' });
+
+      doc.setFontSize(10);
+      doc.text(`Name: ${document.getElementById('previewName').textContent}`, 20, 70);
+      doc.text(`Class: ${document.getElementById('previewClass').textContent}`, 20, 90);
+      doc.text(`Email: ${document.getElementById('previewEmail').textContent}`, 20, 110);
+      doc.text(`Password: ${document.getElementById('previewPassword').textContent}`, 20, 130);
+
+      doc.save('Kad_Delima_Murid_SKKJS.pdf');
+    });
+  </script>
+</body>
+</html>
