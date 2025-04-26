@@ -115,7 +115,7 @@
     <img src="logo.png" alt="School Logo" class="school-logo" />
 
     <form id="idForm">
-      <h1>Generate KAD DELIMA MURID SKKJS</h1>
+      <h1>KAD DELIMA MURID SKKJS</h1>
       <input type="text"    id="studentName"     placeholder="Name"     required />
       <input type="text"    id="studentClass"    placeholder="Class"    required />
       <input type="email"   id="studentEmail"    placeholder="Email"    required />
